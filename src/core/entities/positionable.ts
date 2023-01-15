@@ -47,7 +47,7 @@ export abstract class Positionable extends GameObject {
         this.width = config.width;
 
         this.animations = config.animations;
-        this.animationName = Object.keys(config.animations)[2];
+        this.animationName = Object.keys(config.animations)[0];
         this.animationStep = 0;
         this.animationDimension = [config.frameWidth, config.frameHeight];
 
@@ -67,15 +67,20 @@ export abstract class Positionable extends GameObject {
 
     /** Draw method called on tick */
     public draw(): void {
+        if (!this.game.level) return;
+
         for (let i = 0; i < this.sprites.length; i++) {
             let sprite = this.sprites[i];
+
+            const { left, top } = this.game.level.camera;
+
 
             if (sprite.image) {
                 this.game.ctx.drawImage(
                     sprite.image,
                     this.currentAnimationFrameLeft, 0,
                     this.animationDimension[0], this.animationDimension[1],
-                    this.x, this.y,
+                    left + this.x, top + this.y,
                     this.width, this.height,
                 );
             }
