@@ -20,4 +20,5 @@ canvas#game {
   left: 50%;
   max-width: min(177vh, 100vw);
   max-height: min(100vh, 56vw);
+  image-rendering: pixelated;
 }

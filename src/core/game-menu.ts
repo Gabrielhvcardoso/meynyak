@@ -6,7 +6,7 @@ export class GameMenu {
     }
 
     async init() {
-        const module = (await import('./levels/playground.level'));
+        const module = (await import('./levels/playground-level'));
         const level = new module.PlaygroundLevel(this.game);
 
         this.game.level = level;

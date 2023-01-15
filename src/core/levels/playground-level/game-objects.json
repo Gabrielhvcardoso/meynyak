@@ -1,0 +1,25 @@
+{
+    "hero": {
+        "x": 0,
+        "y": 0,
+        "height": 32,
+        "width": 32,
+
+        "source": [
+            "/assets/sprites/back_arm_0.png",
+            "/assets/sprites/back_leg_0.png",
+            "/assets/sprites/front_leg_0.png",
+            "/assets/sprites/chest_0.png",
+            "/assets/sprites/front_arm_0.png",
+            "/assets/sprites/head_0.png"
+        ],
+
+        "frameHeight": 32,
+        "frameWidth": 32,
+        "animations": {
+            "stand": [1, 2, 3, 4],
+            "walk": [5, 6, 7, 8],
+            "run": [9, 10, 11, 12]
+        }
+    }
+}

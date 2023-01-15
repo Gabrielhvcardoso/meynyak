@@ -4,6 +4,8 @@ import { Level } from "./level";
 
 export class Game {
     private static gameInstance: Game;
+    private static gameFPS = 10;
+    private static gameInterval: NodeJS.Timer;
 
     public canvas: HTMLCanvasElement;
     public ctx: CanvasRenderingContext2D;
@@ -29,18 +31,15 @@ export class Game {
     //
 
     private start(): void {
-        const step = () => {
+        if (Game.gameInterval) clearInterval(Game.gameInterval);
+
+        Game.gameInterval = setInterval(() => {
             if (this.level) {
-                
+                this.level.update();
+                this.level.draw();
             } else {
                 this.gameMenu.draw();
             }
-
-            requestAnimationFrame(() => {
-                step();
-            });
-        }
-
-        step();
+        }, 1000 / Game.gameFPS);
     }
 }

@@ -1,13 +1,13 @@
-import { randomUUID } from "crypto";
+import { randomBytes } from "crypto";
 
 export class UUID {
     private generatedUuid: string;
-    private static uuids: string[];
+    private static uuids: string[] = [];
 
     constructor() {
-        let uuid = randomUUID({ disableEntropyCache: true });
+        let uuid = randomBytes(16).toString('hex');
         while (UUID.uuids.includes(uuid)) {
-            uuid = randomUUID({ disableEntropyCache: true });
+            uuid = randomBytes(16).toString('hex');
         }
         this.generatedUuid = uuid;
     }
