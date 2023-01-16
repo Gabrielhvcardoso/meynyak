@@ -1,6 +1,7 @@
+export type KeyEvents = Record<number, () => void>;
 
 export interface KeyboardConfig {
-    keyEvents: Record<number, () => void>;
+    keyEvents: KeyEvents;
 }
 
 export class KeyboardHandler {
@@ -13,12 +14,6 @@ export class KeyboardHandler {
     }
 
     constructor(private config: KeyboardConfig) {
-        window.addEventListener('keyup', (e: KeyboardEvent) => {
-            if (e.keyCode in this.config.keyEvents) {
-                this.config.keyEvents[e.keyCode]();
-            }
-        });
-
         if (!KeyboardHandler.listening) {
             KeyboardHandler.listening = true;
 
@@ -41,6 +36,14 @@ export class KeyboardHandler {
                 if (e.keyCode === 17) KeyboardHandler.states.ctrl = false;
                 if (e.keyCode === 18) KeyboardHandler.states.alt = false;
             });
+        }
+    }
+
+    update() {
+        for (let key in this.config.keyEvents) {
+            if (KeyboardHandler.keys[key]) {
+                this.config.keyEvents[key]();
+            }
         }
     }
 }

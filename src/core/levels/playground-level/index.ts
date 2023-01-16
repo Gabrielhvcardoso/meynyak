@@ -9,12 +9,15 @@ export class PlaygroundLevel extends Level {
     constructor(game: Game) {
         const hero = new Hero(game, gameObjects.hero);
         const objects: Positionable[] = [];
-        super(game, objects, hero, hero);
+        super(game, objects, hero, hero.id);
     }
 
     setup() {
+        const heroKeyEvents = this.hero.getKeyEvents();
         this.game.keyboardHandler = new KeyboardHandler({
-            keyEvents: {},
+            keyEvents: {
+                ...heroKeyEvents
+            },
         });
     }
 }

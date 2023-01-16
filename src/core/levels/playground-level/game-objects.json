@@ -4,6 +4,9 @@
         "y": 0,
         "height": 32,
         "width": 32,
+        "solid": true,
+
+        "speed": 3,
 
         "source": [
             "/assets/sprites/back_arm_0.png",

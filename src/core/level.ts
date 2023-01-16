@@ -13,22 +13,30 @@ export abstract class Level {
     constructor(protected game: Game,
                 public objects: Positionable[],
                 public hero: Hero,
-                public _camera: Positionable) {
+                public cameraObjectId: string) {
 
         this.setup();
     }
 
     get camera(): CameraAnchors {
-        const top = (this.game.canvas.height - this._camera.height) / 2;
-        const left = (this.game.canvas.width - this._camera.width) / 2;
+        const allObjects = [this.hero, ...this.objects];
+        const cameraObject = allObjects.find(o => o.id === this.cameraObjectId);
+        const top = ((this.game.canvas.height - (cameraObject?.height ?? 0)) / 2) - (cameraObject?.y ?? 0);
+        const left = ((this.game.canvas.width - (cameraObject?.width ?? 0)) / 2) - (cameraObject?.x ?? 0);
         return { top, left };
+    }
+
+    get solidObjects(): Positionable[] {
+        return this.objects.filter(o => o.solid);
     }
 
     /** setup method is responsible to make objects and other configurations */
     protected abstract setup(): void;
 
     public update(): void {
+        this.game.keyboardHandler?.update();
         this.hero.update();
+
         for (let object of this.objects) {
             object.update();
         }

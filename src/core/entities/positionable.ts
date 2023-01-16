@@ -1,5 +1,6 @@
 import { Game } from "../game";
 import { GameObject } from "./game-object";
+import { Moveable } from "./moveable";
 import { Sprite } from "./sprite";
 
 export type AnimationSequence = number[];
@@ -9,6 +10,7 @@ export interface PositionableConfig {
     y: number;
     height: number;
     width: number;
+    solid: boolean;
 
     source: string|string[];
     frameHeight: number;
@@ -21,6 +23,7 @@ export abstract class Positionable extends GameObject {
     y: number;
     height: number;
     width: number;
+    solid: boolean;
 
     sprites: Sprite[] = [];
     animations: Record<string, AnimationSequence>;
@@ -45,6 +48,7 @@ export abstract class Positionable extends GameObject {
         this.y = config.y;
         this.height = config.height;
         this.width = config.width;
+        this.solid = config.solid;
 
         this.animations = config.animations;
         this.animationName = Object.keys(config.animations)[0];
@@ -57,6 +61,10 @@ export abstract class Positionable extends GameObject {
             let sprite = new Sprite({ src });
             this.sprites.push(sprite);
         }
+    }
+
+    public setAnimationName(animationName: string): void {
+        this.animationName = animationName;
     }
 
     public update(): void {
@@ -74,15 +82,23 @@ export abstract class Positionable extends GameObject {
 
             const { left, top } = this.game.level.camera;
 
-
             if (sprite.image) {
+                this.game.ctx.save();
+                this.game.ctx.translate(left + this.x + this.width/2, top + this.y + this.height/2);
+
+                if ('side' in this && this.side === 'left') {
+                    this.game.ctx.scale(-1, 1);
+                }
+
                 this.game.ctx.drawImage(
                     sprite.image,
                     this.currentAnimationFrameLeft, 0,
                     this.animationDimension[0], this.animationDimension[1],
-                    left + this.x, top + this.y,
+                    -this.width/2, -this.height/2,
                     this.width, this.height,
                 );
+
+                this.game.ctx.restore();
             }
         }
     };
