@@ -1,0 +1,5 @@
+hero;health;armor;stamina;speed;force
+gatekeeper;150;150;150;3;3
+magus;130;200;100;2;4
+soldier;200;180;80;2;5
+prisioner;180;100;80;4;4

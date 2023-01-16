@@ -6,7 +6,11 @@
         "width": 32,
         "solid": true,
 
+        "health": 150,
+        "armor": 150,
+        "stamina": 150,
         "speed": 3,
+        "force": 3,
 
         "source": [
             "/assets/sprites/back_arm_0.png",
