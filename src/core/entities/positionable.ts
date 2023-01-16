@@ -1,44 +1,46 @@
 import { Game } from "../game";
 import { GameObject } from "./game-object";
-import { Moveable } from "./moveable";
 import { Sprite } from "./sprite";
 
 export type AnimationSequence = number[];
 
+export interface SpriteLayer {
+    src: string;
+    z?: number;
+    at?: [number, number]
+}
+
 export interface PositionableConfig {
     x: number;
     y: number;
-    height: number;
-    width: number;
+    areaHeight: number;
+    areaWidth: number;
     solid: boolean;
-
-    source: string|string[];
+    
+    layers: SpriteLayer|SpriteLayer[];
     frameHeight: number;
     frameWidth: number;
+    frameOffsetX?: number;
+    frameOffsetY?: number;
     animations: Record<string, AnimationSequence>
 }
 
-export abstract class Positionable extends GameObject {
+export class Positionable extends GameObject {
     x: number;
     y: number;
-    height: number;
-    width: number;
+    areaHeight: number;
+    areaWidth: number;
     solid: boolean;
 
     sprites: Sprite[] = [];
+
     animations: Record<string, AnimationSequence>;
     animationName: string;
     animationStep: number;
-    animationDimension: [number, number];
 
     /** Return the sequence with frames pointers */
     get currentAnimation(): AnimationSequence {
         return this.animations[this.animationName];
-    }
-
-    /** Return the left padding in pixels of current frame */
-    get currentAnimationFrameLeft(): number {
-        return this.animationDimension[0] * (this.currentAnimation[this.animationStep] - 1);
     }
 
     constructor(game: Game, config: PositionableConfig) {
@@ -46,19 +48,28 @@ export abstract class Positionable extends GameObject {
 
         this.x = config.x;
         this.y = config.y;
-        this.height = config.height;
-        this.width = config.width;
+        this.areaHeight = config.areaHeight;
+        this.areaWidth = config.areaWidth;
         this.solid = config.solid;
 
         this.animations = config.animations;
         this.animationName = Object.keys(config.animations)[0];
         this.animationStep = 0;
-        this.animationDimension = [config.frameWidth, config.frameHeight];
 
-        const sourceList: string[] = Array.isArray(config.source) ? config.source : [config.source];
-        for (let i = 0; i < sourceList.length; i++) {
-            let src = sourceList[i];
-            let sprite = new Sprite({ src });
+        const layerList: SpriteLayer[] = Array.isArray(config.layers) ? config.layers : [config.layers];
+        for (let i = 0; i < layerList.length; i++) {
+            let layer = layerList[i];
+            let sprite = new Sprite({
+                src: layer.src,
+                x: this.x,
+                y: this.y,
+                z: layer.z ?? 0,
+                frameStart: layer.at ?? [1, 1],
+                frameWidth: config.frameWidth,
+                frameHeight: config.frameHeight,
+                frameOffsetX: config.frameOffsetX ?? 0,
+                frameOffsetY: config.frameOffsetY ?? 0,
+            });
             this.sprites.push(sprite);
         }
     }
@@ -71,35 +82,30 @@ export abstract class Positionable extends GameObject {
         // update animation step
         const nextAnimationStep = this.animationStep + 1;
         this.animationStep = (nextAnimationStep < this.currentAnimation.length) ? nextAnimationStep : 0;
+
+        // update sprite position
+        for (let sprite of this.sprites) {
+            sprite.x = this.x;
+            sprite.y = this.y;
+        }
     }
 
     /** Draw method called on tick */
     public draw(): void {
         if (!this.game.level) return;
 
-        for (let i = 0; i < this.sprites.length; i++) {
-            let sprite = this.sprites[i];
+        if (!process.env.DEBUG) {
+            this.game.ctx.fillStyle = 'green';
+            this.game.ctx.fillRect(this.game.level.camera.left + this.x, this.game.level.camera.top + this.y, this.areaWidth, this.areaHeight);
+        }
 
-            const { left, top } = this.game.level.camera;
-
-            if (sprite.image) {
-                this.game.ctx.save();
-                this.game.ctx.translate(left + this.x + this.width/2, top + this.y + this.height/2);
-
-                if ('side' in this && this.side === 'left') {
-                    this.game.ctx.scale(-1, 1);
-                }
-
-                this.game.ctx.drawImage(
-                    sprite.image,
-                    this.currentAnimationFrameLeft, 0,
-                    this.animationDimension[0], this.animationDimension[1],
-                    -this.width/2, -this.height/2,
-                    this.width, this.height,
-                );
-
-                this.game.ctx.restore();
-            }
+        for (let sprite of this.sprites) {
+            let camera = this.game.level.camera;
+            let frameCol = this.currentAnimation[this.animationStep];
+            let frameRow = 1;
+            let flipHorizontal = 'side' in this && this.side === 'left';
+            let flipVertical = false;
+            sprite.draw(this.game.ctx, frameCol, frameRow, camera, flipHorizontal, flipVertical);
         }
     };
 }

@@ -36,7 +36,7 @@ export abstract class Moveable extends Interactive {
 
         this.staminaInterval = setInterval(() => {
             if (!this.running) {
-                this.stamina = Math.min(this.maxStamina, this.stamina + 10);
+                this.stamina = Math.min(this.maxStamina, this.stamina + 20);
             }
         }, 500);
     }
@@ -86,8 +86,8 @@ export abstract class Moveable extends Interactive {
         let colision = false;
 
         for (let object of objects) {
-            let hIntersect = (x + this.width) > object.x && x < (object.x + object.width);
-            let vIntersect = (y + this.height) > object.y && y < (object.y + object.height);
+            let hIntersect = (x + this.areaWidth) > object.x && x < (object.x + object.areaWidth);
+            let vIntersect = (y + this.areaHeight) > object.y && y < (object.y + object.areaHeight);
 
             if (hIntersect && vIntersect) {
                 colision = true;

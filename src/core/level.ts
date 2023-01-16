@@ -21,8 +21,8 @@ export abstract class Level {
     get camera(): CameraAnchors {
         const allObjects = [this.hero, ...this.objects];
         const cameraObject = allObjects.find(o => o.id === this.cameraObjectId);
-        const top = ((this.game.canvas.height - (cameraObject?.height ?? 0)) / 2) - (cameraObject?.y ?? 0);
-        const left = ((this.game.canvas.width - (cameraObject?.width ?? 0)) / 2) - (cameraObject?.x ?? 0);
+        const top = ((this.game.canvas.height - (cameraObject?.areaHeight ?? 0)) / 2) - (cameraObject?.y ?? 0);
+        const left = ((this.game.canvas.width - (cameraObject?.areaWidth ?? 0)) / 2) - (cameraObject?.x ?? 0);
         return { top, left };
     }
 
