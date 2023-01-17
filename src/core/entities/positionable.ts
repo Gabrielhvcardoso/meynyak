@@ -94,7 +94,7 @@ export class Positionable extends GameObject {
     public draw(): void {
         if (!this.game.level) return;
 
-        if (!process.env.DEBUG) {
+        if (process.env.DEBUG) {
             this.game.ctx.fillStyle = 'green';
             this.game.ctx.fillRect(this.game.level.camera.left + this.x, this.game.level.camera.top + this.y, this.areaWidth, this.areaHeight);
         }

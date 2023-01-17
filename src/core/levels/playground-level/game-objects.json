@@ -2,8 +2,8 @@
     "hero": {
         "x": 0,
         "y": 0,
-        "areaHeight": 8,
-        "areaWidth": 8,
+        "areaHeight": 4,
+        "areaWidth": 4,
         "solid": true,
 
         "health": 150,
@@ -23,8 +23,8 @@
 
         "frameHeight": 32,
         "frameWidth": 32,
-        "frameOffsetX": -12,
-        "frameOffsetY": -28,
+        "frameOffsetX": -14,
+        "frameOffsetY": -30,
         "animations": {
             "stand": [1, 2, 3, 4],
             "walk": [5, 6, 7, 8],
@@ -43,8 +43,9 @@
                 { "src": "/assets/sprites/tree_1.png", "z": 0, "at": [1, 1] },
                 { "src": "/assets/sprites/tree_1.png", "z": 1, "at": [5, 1] },
                 { "src": "/assets/sprites/tree_1.png", "z": 2, "at": [6, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 3, "at": [9, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 4, "at": [13, 1] }
+                { "src": "/assets/sprites/tree_1.png", "z": 3, "at": [5, 1] },
+                { "src": "/assets/sprites/tree_1.png", "z": 4, "at": [9, 1] },
+                { "src": "/assets/sprites/tree_1.png", "z": 5, "at": [13, 1] }
             ],
             "frameHeight": 16,
             "frameWidth": 32,
@@ -57,7 +58,7 @@
         {
             "x": -64,
             "y": 0,
-            "areaHeight": 10,
+            "areaHeight": 8,
             "areaWidth": 30,
             "solid": true,
             "layers": [
@@ -65,14 +66,14 @@
                 { "src": "/assets/sprites/tree_1.png", "z": 1, "at": [8, 1] },
                 { "src": "/assets/sprites/tree_1.png", "z": 2, "at": [7, 1] },
                 { "src": "/assets/sprites/tree_1.png", "z": 3, "at": [5, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 3, "at": [6, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 3, "at": [10, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 4, "at": [14, 1] }
+                { "src": "/assets/sprites/tree_1.png", "z": 4, "at": [6, 1] },
+                { "src": "/assets/sprites/tree_1.png", "z": 5, "at": [10, 1] },
+                { "src": "/assets/sprites/tree_1.png", "z": 6, "at": [14, 1] }
             ],
             "frameHeight": 16,
             "frameWidth": 32,
-            "frameOffsetX": -2,
-            "frameOffsetY": -6,
+            "frameOffsetX": 0,
+            "frameOffsetY": -8,
             "animations": {
                 "stand": [1]
             }
