@@ -37,13 +37,15 @@ export class Game {
         if (Game.gameInterval) clearInterval(Game.gameInterval);
 
         Game.gameInterval = setInterval(() => {
-            if (this.level) {
-                this.level.update();
-                this.level.draw();
-                this.gameHUD.draw();
-            } else {
+            if (!this.level) {
+                this.gameMenu.update();
                 this.gameMenu.draw();
+                return;
             }
+
+            this.level.update();
+            this.level.draw();
+            this.gameHUD.draw();
         }, 1000 / Game.gameFPS);
     }
 }

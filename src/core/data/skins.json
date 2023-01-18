@@ -1,0 +1,31 @@
+{
+    "head": {
+        "prefix": "head_",
+        "items": [0]
+    },
+
+    "chest": {
+        "prefix": "chest_",
+        "items": [0]
+    },
+
+    "front_arm": {
+        "prefix": "front_arm_",
+        "items": [0]
+    },
+
+    "back_arm": {
+        "prefix": "back_arm_",
+        "items": [0]
+    },
+
+    "front_leg": {
+        "prefix": "front_leg_",
+        "items": [0]
+    },
+
+    "back_leg": {
+        "prefix": "back_leg_",
+        "items": [0]
+    }
+}

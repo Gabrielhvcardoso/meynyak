@@ -56,26 +56,35 @@ export class Sprite {
         camera: CameraAnchors|null|undefined = null,
         flipHorizontal = false,
         flipVertical = false,
+        sizeScale = 1
     ): void {
         if (this.image) {
             const { left, top } = camera || { left: 0, top: 0 };
 
-            const x = this.frameOffsetX + this.x + left + this.frameWidth/2;
-            const y = this.frameOffsetY + this.y + top + this.frameHeight/2 - (this.z*this.frameHeight);
+            const width = this.frameWidth * sizeScale;
+            const height = this.frameHeight * sizeScale;
+
+            const x = this.frameOffsetX + this.x + left + width/2;
+            const y = this.frameOffsetY + this.y + top + height/2 - (this.z*height);
+
+            const scaleX = (flipHorizontal ? -1 : 1);
+            const scaleY = (flipVertical ? -1 : 1);
 
             ctx.save();
             ctx.translate(x, y);
-            ctx.scale(flipHorizontal ? -1 : 1, flipVertical ? -1 : 1);
+            ctx.scale(scaleX, scaleY);
 
-            const frameLeft = (this.frameStart[0]-1)*this.frameWidth + this.frameWidth*(frameCol-1);
-            const frameTop = (this.frameStart[1]-1)*this.frameHeight + this.frameHeight*(frameRow-1);
+            const frameLeft = (this.frameStart[0]-1)*width + width*(frameCol-1);
+            const frameTop = (this.frameStart[1]-1)*height + height*(frameRow-1);
+
+            ctx.imageSmoothingEnabled = false;
 
             ctx.drawImage(
                 this.image,
                 frameLeft, frameTop,
                 this.frameWidth, this.frameHeight,
-                -this.frameWidth/2, -this.frameHeight/2,
-                this.frameWidth, this.frameHeight,
+                -width/2, -height/2,
+                width, height,
             );
 
             ctx.restore();
