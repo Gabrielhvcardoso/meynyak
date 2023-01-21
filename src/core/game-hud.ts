@@ -1,4 +1,5 @@
 import { Game } from "./game";
+import { TextDrawer } from "./text-drawer";
 
 export class GameHUD {
     constructor(private game: Game) {}
@@ -38,5 +39,18 @@ export class GameHUD {
         this.game.ctx.fillRect(left, top, barWidth+barPadding*2, barHeight+barPadding*2);
         this.game.ctx.fillStyle = 'green';
         this.game.ctx.fillRect(left+barPadding, top+barPadding, staminaBar, barHeight);
+
+        top += barHeight + barPadding*2 + barGap;
+
+        const hour = this.game.level.hour.toLocaleString('pt-br', { minimumIntegerDigits: 2 });
+        const minutes = this.game.level.hourMinutes.toLocaleString('pt-br', { minimumIntegerDigits: 2 });
+
+        this.game.ctx.fillStyle = 'white';
+        this.game.ctx.fillRect(left, top, 21, 5);
+
+        top += 1;
+        left += 1;
+
+        TextDrawer.drawText(`${hour}:${minutes}`, this.game.ctx, left, top);
     }
 }

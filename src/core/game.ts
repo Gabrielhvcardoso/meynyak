@@ -5,8 +5,8 @@ import { Level } from "./level";
 
 export class Game {
     private static gameInstance: Game;
-    private static gameFPS = 10;
     private static gameInterval: NodeJS.Timer;
+    static gameFPS = 10;
 
     public canvas: HTMLCanvasElement;
     public ctx: CanvasRenderingContext2D;
