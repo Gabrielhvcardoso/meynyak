@@ -30,53 +30,5 @@
             "walk": [5, 6, 7, 8],
             "run": [9, 10, 11, 12]
         }
-    },
-
-    "trees": [
-        {
-            "x": 64,
-            "y": 0,
-            "areaHeight": 10,
-            "areaWidth": 30,
-            "solid": true,
-            "layers": [
-                { "src": "/assets/sprites/tree_1.png", "z": 0, "at": [1, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 1, "at": [5, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 2, "at": [6, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 3, "at": [5, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 4, "at": [9, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 5, "at": [13, 1] }
-            ],
-            "frameHeight": 16,
-            "frameWidth": 32,
-            "frameOffsetX": -2,
-            "frameOffsetY": -6,
-            "animations": {
-                "stand": [1]
-            }
-        },
-        {
-            "x": -64,
-            "y": 0,
-            "areaHeight": 8,
-            "areaWidth": 30,
-            "solid": true,
-            "layers": [
-                { "src": "/assets/sprites/tree_1.png", "z": 0, "at": [4, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 1, "at": [8, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 2, "at": [7, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 3, "at": [5, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 4, "at": [6, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 5, "at": [10, 1] },
-                { "src": "/assets/sprites/tree_1.png", "z": 6, "at": [14, 1] }
-            ],
-            "frameHeight": 16,
-            "frameWidth": 32,
-            "frameOffsetX": 0,
-            "frameOffsetY": -8,
-            "animations": {
-                "stand": [1]
-            }
-        }
-    ]
+    }
 }
