@@ -1,4 +1,5 @@
 import { Game } from "../game";
+import { PositionableLimits } from "../types/positionable-limits";
 import { GameObject } from "./game-object";
 import { Sprite } from "./sprite";
 
@@ -31,6 +32,14 @@ export class Positionable extends GameObject {
     areaHeight: number;
     areaWidth: number;
     solid: boolean;
+
+    get frameLimits(): PositionableLimits {
+        const top = this.y + this.sprites.reduce((acc, cur) => Math.max(acc, cur.z * cur.frameHeight), 0);
+        const right = this.x + this.areaWidth;
+        const bottom = this.y + this.areaHeight;
+        const left = this.x;
+        return ({ top, right, bottom, left });
+    }
 
     sprites: Sprite[] = [];
 

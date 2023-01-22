@@ -1,14 +1,14 @@
 {
     "hero": {
         "x": 0,
-        "y": 0,
+        "y": 10,
         "areaHeight": 4,
         "areaWidth": 4,
         "solid": true,
 
         "health": 150,
         "armor": 150,
-        "stamina": 300,
+        "stamina": 900,
         "speed": 3,
         "force": 3,
 

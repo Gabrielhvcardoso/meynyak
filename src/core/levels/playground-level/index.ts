@@ -1,5 +1,5 @@
 import { Hero } from "@/core/entities/hero";
-import { Positionable, PositionableConfig } from "@/core/entities/positionable";
+import { Positionable } from "@/core/entities/positionable";
 import { Game } from "@/core/game";
 import { TreeFactory } from "@/core/factories/tree-factory";
 import { KeyboardHandler } from "../../keyboard-handler";
