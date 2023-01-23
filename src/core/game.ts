@@ -10,25 +10,30 @@ export class Game {
 
     public canvas: HTMLCanvasElement;
     public ctx: CanvasRenderingContext2D;
+
+    public shadowCanvas: HTMLCanvasElement;
+    public shadowCtx: CanvasRenderingContext2D;
+    
     public gameMenu: GameMenu;
     public gameHUD: GameHUD;
 
     public level: Level | undefined;
     public keyboardHandler: KeyboardHandler | undefined;
 
-    private constructor(canvas: HTMLCanvasElement) {
+    private constructor(canvas: HTMLCanvasElement, shadowCanvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+        this.shadowCanvas = shadowCanvas;
+        this.shadowCtx = shadowCanvas.getContext("2d") as CanvasRenderingContext2D;
         this.gameMenu = new GameMenu(this);
         this.gameHUD = new GameHUD(this);
         this.start();
     }
 
-    public static getInstance(canvas: HTMLCanvasElement): Game {
+    public static getInstance(canvas: HTMLCanvasElement, shadowCanvas: HTMLCanvasElement): Game {
         if (this.gameInstance) return this.gameInstance;
-        const game = new Game(canvas);
-        this.gameInstance = game;
-        return game;
+        this.gameInstance = new Game(canvas, shadowCanvas);
+        return this.gameInstance;
     }
 
     //

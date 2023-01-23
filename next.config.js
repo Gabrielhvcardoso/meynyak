@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
 
   env: {
-    DEBUG: true
+    DEBUG: false
   }
 }
 

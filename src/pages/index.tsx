@@ -6,10 +6,15 @@ export default function Home() {
 
   useEffect(() => {
     const canvas = document.getElementById("game") as HTMLCanvasElement;
-    setGame(Game.getInstance(canvas));
+    const shadowCanvas = document.getElementById("game-shadow") as HTMLCanvasElement;
+
+    setGame(Game.getInstance(canvas, shadowCanvas));
   }, []);
 
   return (
-    <canvas id="game"></canvas>
+    <>
+      <canvas id="game"></canvas>
+      <canvas id="game-shadow"></canvas>
+    </>
   );
 }

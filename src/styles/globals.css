@@ -15,8 +15,17 @@ body {
   overflow-x: hidden;
 }
 
+canvas {
+  width: 50vw;
+  height: 28.125vw;
+}
+
+canvas#game-shadow {
+  display: none;
+}
+
 canvas#game {
-  background-color: black;
+  background-color: rgb(4, 61, 37);
   width: 1408px;
   height: 792px;
   transform: translate(-50%, -50%);
