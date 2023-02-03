@@ -5,7 +5,7 @@ import { TreeFactory } from "@/core/factories/tree-factory";
 import { KeyboardHandler } from "../../keyboard-handler";
 import { Level } from "../../level";
 import gameObjects from "./game-objects.json"
-import { BonfireFactory } from "@/core/factories/bonfire-factory";
+import { Bonfire } from "@/core/objects/bonfire.object";
 
 export class PlaygroundLevel extends Level {
     constructor(game: Game) {
@@ -19,8 +19,8 @@ export class PlaygroundLevel extends Level {
                 height: 100,
             }),
 
-            BonfireFactory.factory(game, -40, 60),
-            BonfireFactory.factory(game, 30, 40),
+            new Bonfire(game, -40, 60),
+            new Bonfire(game, 30, 40)
         ];
 
         super(game, objects, hero, hero.id);

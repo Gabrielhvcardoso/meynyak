@@ -20,6 +20,12 @@ export class Game {
     public level: Level | undefined;
     public keyboardHandler: KeyboardHandler | undefined;
 
+    public startTime: number;
+
+    get deltaTime(): number {
+        return (performance.now() - this.startTime) / 1000 ;
+    }
+
     private constructor(canvas: HTMLCanvasElement, shadowCanvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -27,6 +33,7 @@ export class Game {
         this.shadowCtx = shadowCanvas.getContext("2d") as CanvasRenderingContext2D;
         this.gameMenu = new GameMenu(this);
         this.gameHUD = new GameHUD(this);
+        this.startTime = performance.now();
         this.start();
     }
 

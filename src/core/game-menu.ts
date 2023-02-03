@@ -43,6 +43,9 @@ export class GameMenu {
     menuItems: MenuItem[];
 
     constructor(private game: Game) {
+
+        this.start('playground-level');
+
         // Skins
         this.skins = skinsConfig;
         for (let key in this.skins) {

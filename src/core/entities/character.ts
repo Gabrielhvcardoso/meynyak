@@ -8,6 +8,7 @@ export interface CharacterConfig extends MoveableConfig {
 }
 
 export abstract class Character extends Moveable {
+
     public health: number;
     public armor: number;
     public force: number;
