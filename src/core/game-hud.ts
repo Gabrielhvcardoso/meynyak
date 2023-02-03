@@ -8,6 +8,7 @@ export class GameHUD {
         if (!this.game.level) return;
 
         const { health, maxHealth, armor, maxArmor, stamina, maxStamina } = this.game.level.hero;
+        const clock = this.game.level.levelClock;
 
         const barWidth = 48;
         const barHeight = 1;
@@ -42,8 +43,8 @@ export class GameHUD {
 
         top += barHeight + barPadding*2 + barGap;
 
-        const hour = this.game.level.hour.toLocaleString('pt-br', { minimumIntegerDigits: 2 });
-        const minutes = this.game.level.hourMinutes.toLocaleString('pt-br', { minimumIntegerDigits: 2 });
+        const hour = clock.hour.toLocaleString('pt-br', { minimumIntegerDigits: 2 });
+        const minutes = clock.hourMinutes.toLocaleString('pt-br', { minimumIntegerDigits: 2 });
 
         this.game.ctx.fillStyle = 'white';
         this.game.ctx.fillRect(left, top, 21, 5);

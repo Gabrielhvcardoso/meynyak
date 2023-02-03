@@ -49,7 +49,6 @@ export class Game {
             }
 
             this.level.update();
-            this.level.draw();
             this.gameHUD.draw();
         }, 1000 / Game.gameFPS);
     }
