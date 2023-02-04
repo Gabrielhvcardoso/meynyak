@@ -11,6 +11,7 @@
 
 html,
 body {
+  background-color: black;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -26,13 +27,16 @@ canvas#game-shadow {
 
 canvas#game {
   background-color: rgb(4, 61, 37);
+  max-width: min(177vh, 100vw);
+  max-height: min(100vh, 56vw);
+  image-rendering: pixelated;
+
+  /* *** absolute positioning *** */
+
   width: 1408px;
   height: 792px;
   transform: translate(-50%, -50%);
   position: absolute;
   top: 50%;
   left: 50%;
-  max-width: min(177vh, 100vw);
-  max-height: min(100vh, 56vw);
-  image-rendering: pixelated;
 }

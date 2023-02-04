@@ -6,6 +6,11 @@ export class Bonfire extends Interactive implements Luminous {
 
     luminous = true;
     luminousRadius = 100;
+    luminousColorsStops = [
+        { offset: 0.0, color: "rgba(0, 0, 0, 1.0)" },
+        { offset: 0.1, color: "rgba(0, 0, 0, 0.6)" },
+        { offset: 1.0, color: "rgba(0, 0, 0, 0.0)" }
+    ];
 
     readonly ILLUM_RADIUS = 100;
     readonly ILLUM_OSCILLATION = 10;

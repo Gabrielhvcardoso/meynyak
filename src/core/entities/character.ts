@@ -22,8 +22,8 @@ export abstract class Character extends Moveable {
 
     constructor(game: Game, { health, armor, force, ...config }: CharacterConfig) {
         super(game, config);
-        this.health = health;
-        this.armor = armor;
+        this.health = health - 20;
+        this.armor = armor - 20;
         this.force = force;
         this.maxHealth = health;
         this.maxArmor = armor;

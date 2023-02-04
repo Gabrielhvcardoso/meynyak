@@ -1,6 +1,8 @@
 import { Game } from "../game";
+import { Coordinate } from "../types/coordinate";
 import { PositionableLimits } from "../types/positionable-limits";
 import { GameObject } from "./game-object";
+import { Interactive } from "./interactive";
 import { Sprite } from "./sprite";
 
 export type AnimationSequence = number[];
@@ -32,6 +34,12 @@ export class Positionable extends GameObject {
     areaHeight: number;
     areaWidth: number;
     solid: boolean;
+
+    get center(): Coordinate {
+        const x = this.x + this.areaWidth / 2;
+        const y = this.y + this.areaHeight / 2;
+        return { x, y };
+    }
 
     get frameLimits(): PositionableLimits {
         const top = this.y + this.sprites.reduce((acc, cur) => Math.max(acc, cur.z * cur.frameHeight), 0);

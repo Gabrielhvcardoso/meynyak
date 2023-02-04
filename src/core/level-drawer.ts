@@ -45,19 +45,6 @@ export class LevelDrawer {
         const { width, height } = this.game.shadowCanvas;
         const clock = this.level.levelClock;
 
-        // draw hero light
-
-        let radius = 50;
-        let x = this.level.camera.left + this.level.hero.x + this.level.hero.areaWidth/2;
-        let y = this.level.camera.top + this.level.hero.y + this.level.hero.areaHeight/2;
-        let grd = this.game.shadowCtx.createRadialGradient(x, y, 0, x, y, radius);
-        grd.addColorStop(0.0, "rgba(0, 0, 0, 0.2)");
-        grd.addColorStop(0.5, "rgba(0, 0, 0, 0.1)");
-        grd.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
-        this.game.shadowCtx.fillStyle = grd;
-        this.game.shadowCtx.fillRect(x - radius, y - radius, (radius * 2), (radius * 2));
-
-
         // draw luminous objects
 
         for (let luminous of this.level.luminousObjects) {
@@ -65,9 +52,11 @@ export class LevelDrawer {
             let y = this.level.camera.top + luminous.y + luminous.areaHeight/2;
             const { luminousRadius } = luminous;
             let grd = this.game.shadowCtx.createRadialGradient(x, y, 0, x, y, luminousRadius);
-            grd.addColorStop(0.0, "rgba(0, 0, 0, 1.0)");
-            grd.addColorStop(0.1, "rgba(0, 0, 0, 0.6)");
-            grd.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
+
+            for (let colorStop of luminous.luminousColorsStops) {
+                grd.addColorStop(colorStop.offset, colorStop.color);
+            }
+
             this.game.shadowCtx.fillStyle = grd;
             this.game.shadowCtx.fillRect(x - luminousRadius, y - luminousRadius, (luminousRadius * 2), (luminousRadius * 2));
         }
