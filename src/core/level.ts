@@ -19,7 +19,7 @@ export abstract class Level {
 
         this.setup();
         this.levelClock = new LevelClock();
-        this.levelDrawer = new LevelDrawer(this);
+        this.levelDrawer = new LevelDrawer(this.game);
     }
 
     /** setup method is responsible to make objects and other configurations */
@@ -87,78 +87,4 @@ export abstract class Level {
                 || (o.frameLimits.left < left && o.frameLimits.right > right);
         });
     }
-
-
-    // public draw(): void {
-    //     this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
-    //     const yOrderedObjects = this.visibleObjects.sort((a, b) => a.y - b.y);
-
-    //     for (let object of yOrderedObjects) {
-    //         object.draw();
-    //     }
-
-    //     this.drawShadow();
-    // }
-
-    // // Light and shadow
-
-    // public drawShadow(): void {
-    //     const { width, height } = this.game.shadowCanvas;
-    //     this.game.shadowCtx.clearRect(0, 0, width, height);
-
-    //     // draw hero light
-
-    //     let radius = 50;
-    //     let x = this.camera.left + this.hero.x + this.hero.areaWidth/2;
-    //     let y = this.camera.top + this.hero.y + this.hero.areaHeight/2;
-    //     let grd = this.game.shadowCtx.createRadialGradient(x, y, 0, x, y, radius);
-    //     grd.addColorStop(0.0, "rgba(0, 0, 0, 0.2)");
-    //     grd.addColorStop(0.5, "rgba(0, 0, 0, 0.1)");
-    //     grd.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
-    //     this.game.shadowCtx.fillStyle = grd;
-    //     this.game.shadowCtx.fillRect(x - radius, y - radius, (radius * 2), (radius * 2));
-
-
-    //     // draw luminous objects
-
-    //     for (let luminous of this.luminousObjects) {
-    //         let x = this.camera.left + luminous.x + luminous.areaWidth/2;
-    //         let y = this.camera.top + luminous.y + luminous.areaHeight/2;
-    //         const { luminousRadius } = luminous;
-    //         let grd = this.game.shadowCtx.createRadialGradient(x, y, 0, x, y, luminousRadius);
-    //         grd.addColorStop(0.0, "rgba(0, 0, 0, 1.0)");
-    //         grd.addColorStop(0.7, "rgba(0, 0, 0, 0.6)");
-    //         grd.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
-    //         this.game.shadowCtx.fillStyle = grd;
-    //         this.game.shadowCtx.fillRect(x - luminousRadius, y - luminousRadius, (luminousRadius * 2), (luminousRadius * 2));
-    //     }
-
-    //     // apply daylight
-
-    //     const breakpoints = (Object.keys(this.daylightAlphaHoursBreakpoints) as unknown as number[]);
-    //     const currentBreakpoint = Math.max(...breakpoints.filter(a => a <= this.dayMinutes));
-    //     const alpha = this.daylightAlphaHoursBreakpoints[currentBreakpoint];
-
-    //     this.game.shadowCtx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
-    //     this.game.shadowCtx.fillRect(0, 0, width, height);
-
-    //     // reverse alphas
-
-    //     const canvasData = this.game.shadowCtx.getImageData(0, 0, width, height);
-    //     const data = canvasData.data;
-
-    //     for (let x = 0; x < width; x++) {
-    //         for (let y = 0; y < height; y++) {
-    //             const index = 4 * (x + y * width);
-    //             const alpha = data[index + 3];
-    //             data[index + 3] = 255 - alpha - 20;
-    //         }
-    //     }
-
-    //     this.game.shadowCtx.putImageData(canvasData, 0, 0);
-
-    //     // draw in final canvas
-
-    //     this.game.ctx.drawImage(this.game.shadowCanvas, 0, 0, width, height);
-    // }
 }

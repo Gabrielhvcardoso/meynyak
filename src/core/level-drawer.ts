@@ -1,14 +1,18 @@
 import daylightAlphaHoursBreakpoints from './data/daylight-alpha-hours-breakpoints.json';
 
 import { Game } from "./game";
+import { GameUI } from './game-ui';
 import { Level } from "./level";
 
 export class LevelDrawer {
-    game: Game;
+    private game: Game;
+    private gameUI: GameUI;
+
     readonly daylightAlphaHoursBreakpoints = daylightAlphaHoursBreakpoints as Record<number, number>;
 
-    constructor(private level: Level) {
-        this.game = level.game;
+    constructor(game: Game) {
+        this.game = game;
+        this.gameUI = new GameUI(game);
     }
 
     update() {
@@ -18,7 +22,8 @@ export class LevelDrawer {
     // Draw
 
     public draw(): void {
-        const { width, height } = this.game.canvas
+        const { width, height } = this.game.canvas;
+
         // draw
         this.game.ctx.clearRect(0, 0, width, height);
         this.drawObjects();
@@ -27,10 +32,15 @@ export class LevelDrawer {
         this.game.shadowCtx.clearRect(0, 0, width, height);
         this.applyDynamicLight();
         this.reverseAlphas();
+
+        // hud
+        this.gameUI.draw();
     }
 
     private drawObjects(): void {
-        const yOrderedObjects = this.level.visibleObjects.sort((a, b) => a.y - b.y);
+        if (!this.game.level) return;
+
+        const yOrderedObjects = this.game.level.visibleObjects.sort((a, b) => a.y - b.y);
 
         for (let object of yOrderedObjects) {
             object.draw();
@@ -40,16 +50,16 @@ export class LevelDrawer {
     // Light and shadow
 
     private applyDynamicLight(): void {
-        if (!this.game) return;
+        if (!this.game.level) return;
 
         const { width, height } = this.game.shadowCanvas;
-        const clock = this.level.levelClock;
+        const clock = this.game.level.levelClock;
 
         // draw luminous objects
 
-        for (let luminous of this.level.luminousObjects) {
-            let x = this.level.camera.left + luminous.x + luminous.areaWidth/2;
-            let y = this.level.camera.top + luminous.y + luminous.areaHeight/2;
+        for (let luminous of this.game.level.luminousObjects) {
+            let x = this.game.level.camera.left + luminous.x + luminous.areaWidth/2;
+            let y = this.game.level.camera.top + luminous.y + luminous.areaHeight/2;
             const { luminousRadius } = luminous;
             let grd = this.game.shadowCtx.createRadialGradient(x, y, 0, x, y, luminousRadius);
 

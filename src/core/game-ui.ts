@@ -3,12 +3,13 @@ import { Game } from "./game";
 import { TextDrawer } from "./text-drawer";
 import { Side } from "./types/side";
 
-export class GameHUD {
+export class GameUI {
 
     constructor(private game: Game) {}
 
     draw() {
         this.drawHeroStats();
+        this.drawInteractiveHint();
     }
 
     private drawHeroStats(): void {
@@ -67,7 +68,7 @@ export class GameHUD {
         // TextDrawer.drawText(`${hour}:${minutes}`, this.game.ctx, left, top);
     }
 
-    private drawInteractiveHint(): void {
+    public drawInteractiveHint(): void {
         if (!this.game.level) return;
 
         const { hero, camera } = this.game.level;

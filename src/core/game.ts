@@ -1,4 +1,3 @@
-import { GameHUD } from "./game-hud";
 import { GameMenu } from "./game-menu";
 import { KeyboardHandler } from "./keyboard-handler";
 import { Level } from "./level";
@@ -14,9 +13,8 @@ export class Game {
     public shadowCanvas: HTMLCanvasElement;
     public shadowCtx: CanvasRenderingContext2D;
     
-    public gameMenu: GameMenu;
-    public gameHUD: GameHUD;
-
+    
+    public menu: GameMenu;
     public level: Level | undefined;
     public keyboardHandler: KeyboardHandler | undefined;
 
@@ -31,8 +29,7 @@ export class Game {
         this.ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         this.shadowCanvas = shadowCanvas;
         this.shadowCtx = shadowCanvas.getContext("2d") as CanvasRenderingContext2D;
-        this.gameMenu = new GameMenu(this);
-        this.gameHUD = new GameHUD(this);
+        this.menu = new GameMenu(this);
         this.startTime = performance.now();
         this.start();
     }
@@ -50,13 +47,13 @@ export class Game {
 
         Game.gameInterval = setInterval(() => {
             if (!this.level) {
-                this.gameMenu.update();
-                this.gameMenu.draw();
+                this.menu.update();
+                this.menu.draw();
                 return;
             }
 
             this.level.update();
-            this.gameHUD.draw();
+
         }, 1000 / Game.gameFPS);
     }
 }
