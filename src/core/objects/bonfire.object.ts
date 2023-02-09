@@ -29,8 +29,8 @@ export class Bonfire extends Interactive implements Luminous {
             frameOffsetX: -8,
             frameOffsetY: -16,
             animations: { idle: [1, 2, 3, 4, 5, 6, 7, 8] },
-            interactivityRange: 50,
-            interactivityHint: false
+            interactivityRange: 100,
+            interactivityHint: true
         });
     }
 
@@ -44,5 +44,9 @@ export class Bonfire extends Interactive implements Luminous {
      */
     oscillateBonfireIllumination(deltaTime: number): void {
         this.luminousRadius = this.ILLUM_RADIUS + this.ILLUM_OSCILLATION * Math.sin(this.ILLUM_FREQUENCY * deltaTime);
+    }
+
+    handleInteractivity(): void {
+        
     }
 }

@@ -12,6 +12,9 @@
         "speed": 3,
         "force": 3,
 
+        "interactivityRange": 30,
+        "interactivityHint": false,
+
         "layers": [
             { "src": "/assets/sprites/back_arm_0.png" },
             { "src": "/assets/sprites/back_leg_0.png" },

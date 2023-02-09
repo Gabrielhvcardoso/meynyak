@@ -97,4 +97,7 @@ export abstract class Moveable extends Interactive {
 
         return !colision;
     }
+
+    // makes it optional for moveable objects
+    handleInteractivity(): void {}
 }
